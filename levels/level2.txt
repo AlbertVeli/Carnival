@@ -1,0 +1,288 @@
+##########
+# Layers #
+##########
+[layers]
+bg0_s = png/bg1.png                   # 0
+bg0_pos = 131,115
+right_deco_s = png/right_mountain.png # 1
+right_deco_pos = 478,171
+bg1_s = png/bg2.png                   # 2
+bg1_pos = 131,340
+left_deco_s = png/left_mountain.png   # 3
+left_deco_pos = 131,228
+bg2_s = png/bg3.png                   # 4
+bg2_pos = 131,436
+top_s = png/top.png                   # 5
+top_pos = 142,63
+left_s = png/left2.png                # 6
+left_pos = 0,0
+right_s = png/right.png               # 7
+right_pos = 613,0
+bottom_s = png/bottom.png             # 8
+bottom_pos = 0,545
+background_s = png/background.png
+# bg_x = (800 - width) / 2
+# bg_y = (600 - height) / 2
+# width = 755, height = 565 -> (800 - 755) / 2, (600 - 545) / 2
+background_pos = 22,27
+
+
+########
+# Bird #
+########
+[target]
+sprite = png/bird.png
+pending = true
+pend_invert = true
+pend_fi_amp = 25
+pend_fi_c = 1.3
+pend_offset = 0
+pend_l = 110
+horizontal = true
+hor_speed = -1.1
+hor_pending = false
+hor_pend_amp = 0
+hor_pend_c = 0
+hor_end_frames = 0
+max_age = 495
+targ_x = 34
+targ_y = 34
+spawn_x_points = 595,620,650
+spawn_y_points = 30
+n_x_points = 3
+n_y_points = 1
+# bg0        = 0
+# right_deco = 1
+# bg1        = 2
+# left_deco  = 3
+# bg2        = 4
+# top        = 5
+# left       = 6
+# right      = 7
+# bottom     = 8
+layers = 5,6,7,-1
+wave1 = false
+wave2 = false
+base_points = 350
+targ_r_outer = 100
+targ_r_middle = 49
+targ_r_inner = 16
+flag_x = 10
+flag_y = 30
+flag_extra_fi = 100
+
+
+########
+# Fish #
+########
+[target]
+sprite = png/fish.png
+pending = true
+pend_invert = false
+pend_fi_amp = 9
+pend_fi_c = 1.4
+pend_offset = -64
+pend_l = 100
+horizontal = true
+hor_speed = 0.8
+hor_pending = false
+hor_pend_amp = 0
+hor_pend_c = 0
+hor_end_frames = 0
+max_age = 740
+targ_x = 55
+targ_y = 39
+spawn_x_points = 50,60
+spawn_y_points = 530
+n_x_points = 2
+n_y_points = 1
+layers = 6,7,-1
+wave1 = false
+wave2 = true
+base_points = 125
+targ_r_outer = 256
+targ_r_middle = 100
+targ_r_inner = 25
+flag_x = 60
+flag_y = 20
+flag_extra_fi = 0
+
+
+###########
+# Dolphin #
+###########
+[target]
+sprite = png/dolph.png
+pending = true
+pend_invert = false
+pend_fi_amp = 90
+pend_fi_c = 0.3
+pend_offset = -64
+pend_l = 100
+horizontal = false
+hor_speed = 0
+hor_pending = false
+hor_pend_amp = 0
+hor_pend_c = 0
+hor_end_frames = 0
+max_age = 380
+targ_x = 44
+targ_y = 33
+spawn_x_points = 150,290,400,500
+spawn_y_points = 480
+n_x_points = 4
+n_y_points = 1
+layers = 6,7,8,-1
+wave1 = true
+wave2 = true
+base_points = 200
+targ_r_outer = 256
+targ_r_middle = 100
+targ_r_inner = 25
+flag_x = 50
+flag_y = 10
+flag_extra_fi = -64
+
+
+###########
+# Pelican #
+###########
+[target]
+sprite = png/pelican.png
+pending = true
+pend_invert = false
+pend_fi_amp = 20
+pend_fi_c = 1.5
+pend_offset = -64
+pend_l = 100
+horizontal = true
+hor_speed = -1.3
+hor_pending = false
+hor_pend_amp = 0
+hor_pend_c = 0
+hor_end_frames = 0
+max_age = 483
+targ_x = 84
+targ_y = 74
+spawn_x_points = 662
+spawn_y_points = 470
+n_x_points = 1
+n_y_points = 1
+layers = 6,7,-1
+wave1 = true
+wave2 = true
+base_points = 125
+targ_r_outer = 256
+targ_r_middle = 100
+targ_r_inner = 25
+flag_x = 50
+flag_y = 26
+flag_extra_fi = 0
+
+
+#######
+# Hen #
+#######
+[target]
+sprite = png/hen.png
+pending = true
+pend_invert = false
+pend_fi_amp = 10
+pend_fi_c = 2.4
+pend_offset = 0
+pend_l = 140
+horizontal = true
+hor_speed = -1.1
+hor_pending = false
+hor_pend_amp = 0
+hor_pend_c = 0
+hor_end_frames = 0
+max_age = 495
+targ_x = 18
+targ_y = 64
+spawn_x_points = 620,650
+spawn_y_points = 476
+n_x_points = 2
+n_y_points = 1
+layers = 3,6,7,-1
+wave1 = false
+wave2 = false
+base_points = 350
+targ_r_outer = 100
+targ_r_middle = 49
+targ_r_inner = 16
+flag_x = 26
+flag_y = 53
+flag_extra_fi = 0
+
+
+###########
+# Penguin #
+###########
+[target]
+sprite = png/penguin.png
+pending = true
+pend_invert = false
+pend_fi_amp = 10
+pend_fi_c = 1.7
+pend_offset = 0
+pend_l = 110
+horizontal = true
+hor_speed = -1.7
+hor_pending = false
+hor_pend_amp = 0
+hor_pend_c = 0
+hor_end_frames = 0
+max_age = 350
+targ_x = 23
+targ_y = 55
+spawn_x_points = 605,625,640
+spawn_y_points = 352
+n_x_points = 3
+n_y_points = 1
+layers = 1,3,6,7,-1
+wave1 = false
+wave2 = false
+base_points = 200
+targ_r_outer = 256
+targ_r_middle = 100
+targ_r_inner = 25
+flag_x = 38
+flag_y = 39
+flag_extra_fi = 0
+
+
+########
+# Seal #
+########
+[target]
+sprite = png/seal.png
+pending = true
+pend_invert = false
+pend_fi_amp = 10
+pend_fi_c = 2.1
+pend_offset = -64
+pend_l = 80
+horizontal = true
+hor_speed = -0.7
+hor_pending = false
+hor_pend_amp = 0
+hor_pend_c = 0
+hor_end_frames = 0
+max_age = 740
+targ_x = 41
+targ_y = 70
+spawn_x_points = 650
+spawn_y_points = 400
+n_x_points = 1
+n_y_points = 1
+layers = 3,4,6,7,-1
+wave1 = false
+wave2 = false
+base_points = 125
+targ_r_outer = 256
+targ_r_middle = 100
+targ_r_inner = 25
+flag_x = 41
+flag_y = 0
+flag_extra_fi = 0
