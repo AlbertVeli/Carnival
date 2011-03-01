@@ -7,7 +7,7 @@ eXe = carnival
 OBJS = carnival.o level.o sdl_video.o sdl_sprite.o sdl_cursor.o sdl_event.o sdl_rotozoom.o trickmath.o
 
 $(eXe): $(OBJS)
-	$(CC) -pg -o $@ $(OBJS) $(LIBS)
+	$(CC) -o $@ $(OBJS) $(LIBS)
 
 .PHONY: clean
 

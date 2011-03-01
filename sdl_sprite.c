@@ -69,6 +69,12 @@ static SDL_Surface *sdl_load_png(const char *filename, bool *rgba)
    SDL_Surface *s = NULL;
    char *pixelp;
    int i = 0;
+   png_byte bit_depth;
+   png_byte color_type;
+   png_size_t rowbytes;
+   png_size_t width;
+   png_size_t height;
+   png_bytepp row_pointers;
 
    /* Find slot in pixels[] */
    while (pixels[i] && i < MAX_SPRITES) {
@@ -119,6 +125,7 @@ static SDL_Surface *sdl_load_png(const char *filename, bool *rgba)
 
    png_set_sig_bytes(png_ptr, PNG_BYTES_TO_CHECK);
 
+   /* XXX: Replace with png_read_info(png_ptr, info_ptr) ? */
    png_read_png(png_ptr, info_ptr, 0, NULL);
 
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
@@ -133,55 +140,67 @@ static SDL_Surface *sdl_load_png(const char *filename, bool *rgba)
    amask = 0xff000000;
 #endif
 
-   if (!((info_ptr->pixel_depth == 32 && info_ptr->color_type == PNG_COLOR_TYPE_RGBA) ||
-         (info_ptr->pixel_depth == 8 && info_ptr->color_type == PNG_COLOR_TYPE_PALETTE))) {
-      WARN("%s has format %dbpp, colortype %d but only 32bpp RGBA or 8bpp PALETTE png files supported",
-           filename, info_ptr->pixel_depth, info_ptr->color_type);
+   bit_depth = png_get_bit_depth(png_ptr, info_ptr);
+   color_type = png_get_color_type(png_ptr, info_ptr);
+   rowbytes = png_get_rowbytes(png_ptr, info_ptr);
+   width = png_get_image_width(png_ptr, info_ptr);
+   height = png_get_image_height(png_ptr, info_ptr);
+   row_pointers = png_get_rows(png_ptr, info_ptr);
+
+   if (!((bit_depth == 8 && color_type == PNG_COLOR_TYPE_RGBA) ||
+         (bit_depth == 8 && color_type == PNG_COLOR_TYPE_PALETTE))) {
+      WARN("%s has format %dbit, colortype %d but only 8bit RGBA or 8bpp PALETTE png files supported",
+           filename, bit_depth, color_type);
       goto out;
    }
 
-   if (info_ptr->pixel_depth == 32 && info_ptr->color_type == PNG_COLOR_TYPE_RGBA) {
+   if (bit_depth == 8 && color_type == PNG_COLOR_TYPE_RGBA) {
       /* 32bpp, RGBA */
       *rgba = true;
 
-      pixelp = (char *)malloc(info_ptr->height * info_ptr->rowbytes);
+      pixelp = (char *)malloc(height * rowbytes);
       if (!pixelp) {
          WARN("malloc failed for %s", filename);
          goto out;
       }
-      for (y = 0, p = pixelp; y < info_ptr->height; y++, p += info_ptr->rowbytes) {
-         memcpy(p, info_ptr->row_pointers[y], info_ptr->rowbytes);
+      for (y = 0, p = pixelp; y < height; y++, p += rowbytes) {
+         memcpy(p, row_pointers[y], rowbytes);
       }
 
-      s = SDL_CreateRGBSurfaceFrom(pixelp, info_ptr->width, info_ptr->height,
-                                   info_ptr->pixel_depth, info_ptr->rowbytes,
+      s = SDL_CreateRGBSurfaceFrom(pixelp, width, height,
+                                   bit_depth * 4, rowbytes,
                                    rmask, gmask, bmask, amask);
 
       /* Don't free pixelp until surface is destroyed */
 
    } else {
       SDL_Color colors[256];
+      png_colorp palette;
+      int num_palette;
+
       /* 8bpp, PNG_COLOR_TYPE_PALETTE */
       *rgba = false;
 
-      s = SDL_CreateRGBSurface(SDL_SWSURFACE, info_ptr->width, info_ptr->height,
-                               info_ptr->pixel_depth, rmask, gmask, bmask, amask);
+      s = SDL_CreateRGBSurface(SDL_SWSURFACE, width, height,
+                               bit_depth, rmask, gmask, bmask, amask);
       if (SDL_MUSTLOCK(s)) {
          SDL_LockSurface(s);
       }
 
       /* Pixels */
-      for (y = 0, p = (char *)s->pixels; y < info_ptr->height; y++, p += s->pitch) {
-         memcpy(p, info_ptr->row_pointers[y], info_ptr->rowbytes);
+      for (y = 0, p = (char *)s->pixels; y < height; y++, p += s->pitch) {
+         memcpy(p, row_pointers[y], rowbytes);
       }
 
+      png_get_PLTE(png_ptr, info_ptr, &palette, &num_palette);
+
       /* Palette */
-      for (y = 0; y < info_ptr->num_palette; y++) {
-         colors[y].r = info_ptr->palette[y].red;
-         colors[y].g = info_ptr->palette[y].green;
-         colors[y].b = info_ptr->palette[y].blue;
+      for (y = 0; y < (unsigned int)num_palette; y++) {
+         colors[y].r = palette[y].red;
+         colors[y].g = palette[y].green;
+         colors[y].b = palette[y].blue;
       }
-      SDL_SetColors(s, colors, 0, info_ptr->num_palette);
+      SDL_SetColors(s, colors, 0, num_palette);
 
       if (SDL_MUSTLOCK(s)) {
          SDL_UnlockSurface(s);
