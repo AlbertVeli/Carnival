@@ -8,6 +8,7 @@ intended for the Free Software community.
 
 TODO:
 
+* Fix memory corruption in sdl_sprite.c.
 * Rewrite first level to remove similarities with Carnival Shootout.
 * Add more levels.
 * Add initial screen and highscore screen.
