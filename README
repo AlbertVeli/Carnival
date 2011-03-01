@@ -1,0 +1,19 @@
+Amusement Park Shooter
+======================
+
+This game was inspired by the commercial trick shooter Carnival
+Shootout. Similarities will be removed. When ready this game is
+intended for the Free Software community.
+
+
+TODO:
+
+* Rewrite first level to remove similarities with Carnival Shootout.
+* Add more levels.
+* Add initial screen and highscore screen.
+* Add sound (and on/off button).
+
+
+Brainstorming
+
+* Network play.
