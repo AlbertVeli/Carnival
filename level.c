@@ -393,7 +393,7 @@ static bool parse_level(char *strp)
          goto out;
       }
       if (*p != '=') {
-         WARN("Parse error at (line %d, char %d), '=' expected - '%c' found", line, p - beg, *p);
+         WARN("Parse error at (line %d, char %d), '=' expected - '%c' found", line, (int)(p - beg), *p);
          goto out;
       }
       p++;
@@ -413,13 +413,13 @@ static bool parse_level(char *strp)
       if (i == 0) {
          /* No value */
          WARN("Parse error - no value found - for key '%s' at (line %d, char %d)",
-              pnames[key].name, line, p - beg);
+              pnames[key].name, line, (int)(p - beg));
          goto out;
       }
       if (i == MAX_VALUE_SIZE) {
          /* Value too long, something fishy here */
          WARN("Parse error - value too long - for key '%s' at (line %d, char %d)",
-              pnames[key].name, line, p - beg);
+              pnames[key].name, line, (int)(p - beg));
          goto out;
       }
 
@@ -493,7 +493,7 @@ static bool parse_level(char *strp)
                boolv = true;
             } else {
                WARN("Parse error - boolean expected - for key '%s' at (line %d, char %d)",
-                    pnames[key].name, line, p - i - beg);
+                    pnames[key].name, line, (int)(p - i - beg));
                goto out;
             }
          } else if (i == 4 && strcmp("true", value) == 0) {
@@ -503,7 +503,7 @@ static bool parse_level(char *strp)
             boolv = false;
          } else {
             WARN("Parse error - boolean expected - for key '%s' at (line %d, char %d)",
-                 pnames[key].name, line, p - i - beg);
+                 pnames[key].name, line, (int)(p - i - beg));
             goto out;
          }
 
