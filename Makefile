@@ -1,6 +1,18 @@
-CC = gcc
-CFLAGS = -g -O0 -W -Wall `sdl-config --cflags`
-LIBS = `sdl-config --libs` -lpng
+CC       = gcc
+CFLAGS   = -W -Wall -Werror `sdl-config --cflags`
+LIBS     = `sdl-config --libs` -lpng
+
+# Run:
+#     DEBUG=1 make
+# to compile with debug info
+ifdef DEBUG
+CFLAGS += -ggdb -O0
+else
+CFLAGS += -O2
+endif
+
+# Uncomment the following line if using MacPorts
+#CFLAGS += -I/opt/local/include
 
 eXe = carnival
 

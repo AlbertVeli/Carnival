@@ -71,6 +71,8 @@ static float sintab[65] = {
  * ----------------------------------------------
  */
 
+/* #if this out because it causes compiler warnings */
+#if 0
 /* Taken from Quake III source code */
 float Q_rsqrt(float number)
 {
@@ -87,7 +89,7 @@ float Q_rsqrt(float number)
 
    return y;
 }
-
+#endif
 
 /* Lookup in sintab (taken from Rockbox source code) */
 inline float u8sin(unsigned char v)

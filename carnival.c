@@ -996,7 +996,7 @@ void mouse_clicked(int x, int y)
 }
 
 
-int main(void)
+int main(int argc __attribute__((unused)), char *argv[] __attribute__((unused)))
 {
    /* Initialize game */
    game_init(800, 600);
